@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="640" height="640">
+  <!-- Background: navy blue -->
+  <rect width="640" height="640" fill="#1B2B4B"/>
+
+  <!-- Body (chest visible at bottom) -->
+  <ellipse cx="320" cy="660" rx="230" ry="145" fill="#FFF5E6"/>
+
+  <!-- Neck -->
+  <rect x="277" y="455" width="86" height="145" rx="35" fill="#FFF5E6"/>
+
+  <!-- Head -->
+  <ellipse cx="320" cy="375" rx="118" ry="108" fill="#FFF5E6"/>
+
+  <!-- Fluffy fur (alpaca mohawk) -->
+  <circle cx="250" cy="295" r="50" fill="#FFF5E6"/>
+  <circle cx="285" cy="265" r="58" fill="#FFF5E6"/>
+  <circle cx="322" cy="258" r="63" fill="#FFF5E6"/>
+  <circle cx="360" cy="265" r="57" fill="#FFF5E6"/>
+  <circle cx="393" cy="292" r="48" fill="#FFF5E6"/>
+
+  <!-- Ears -->
+  <ellipse cx="210" cy="345" rx="28" ry="55" fill="#FFF5E6" transform="rotate(-18 210 345)"/>
+  <ellipse cx="210" cy="345" rx="16" ry="34" fill="#F5C0B0" transform="rotate(-18 210 345)"/>
+  <ellipse cx="430" cy="345" rx="28" ry="55" fill="#FFF5E6" transform="rotate(18 430 345)"/>
+  <ellipse cx="430" cy="345" rx="16" ry="34" fill="#F5C0B0" transform="rotate(18 430 345)"/>
+
+  <!-- Hard hat (orange) -->
+  <ellipse cx="320" cy="258" rx="142" ry="30" fill="#E55A00"/>
+  <ellipse cx="320" cy="225" rx="118" ry="52" fill="#FF7A28"/>
+  <ellipse cx="300" cy="212" rx="45" ry="16" fill="#FFB878" opacity="0.45"/>
+  <rect x="208" y="246" width="224" height="16" fill="#CC4A00" rx="3"/>
+
+  <!-- Eyes -->
+  <ellipse cx="286" cy="368" rx="26" ry="29" fill="#111"/>
+  <ellipse cx="354" cy="368" rx="26" ry="29" fill="#111"/>
+  <circle cx="295" cy="358" r="10" fill="white"/>
+  <circle cx="363" cy="358" r="10" fill="white"/>
+  <circle cx="298" cy="361" r="5" fill="white"/>
+  <circle cx="366" cy="361" r="5" fill="white"/>
+
+  <!-- Nose -->
+  <ellipse cx="320" cy="410" rx="36" ry="26" fill="#F5C0B0"/>
+  <ellipse cx="308" cy="405" rx="11" ry="10" fill="#7A3535"/>
+  <ellipse cx="332" cy="405" rx="11" ry="10" fill="#7A3535"/>
+
+  <!-- Mouth -->
+  <path d="M 306 422 Q 320 438 334 422" stroke="#7A3535" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Tow hook icon on hard hat -->
+  <path d="M 304 233 L 304 218 Q 304 208 314 208 L 330 208 Q 340 208 340 218 L 340 225 Q 340 232 334 232"
+        stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="334" cy="236" r="7" stroke="white" stroke-width="5" fill="none"/>
+
+  <!-- Service name at bottom -->
+  <text x="320" y="608" text-anchor="middle"
+        font-family="'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif"
+        font-size="38" font-weight="bold" fill="white" letter-spacing="1">アルパカレッカー</text>
+</svg>
