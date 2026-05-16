@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アルパカレッカー｜兵庫・神戸・姫路のレッカー・ロードサービス 24時間365日対応</title>
+  <meta name="description" content="兵庫県全域対応のレッカー・ロードサービス。バッテリー上がり・パンク・エンジンがかからない・鍵閉じ込め・ガス欠・事故搬送など24時間365日・最短20分で駆けつけます。">
+  <meta name="keywords" content="レッカー,ロードサービス,兵庫,神戸,姫路,バッテリー上がり,パンク,ガス欠,事故搬送,24時間,アルパカレッカー">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #E8222A;
+      --red-dark: #b01820;
+      --gold: #FFD700;
+      --dark: #080c14;
+      --dark2: #0f1624;
+      --dark3: #161f30;
+      --card: #141d2b;
+      --border: rgba(255,255,255,0.08);
+      --text: #ffffff;
+      --muted: #7a8899;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 0 40px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,12,20,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .logo {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo .logo-accent { color: var(--red); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-tel-link {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-header {
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+
+    .btn-header:hover { background: var(--red-dark); }
+
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      .header-tel-link span { display: none; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("https://images.unsplash.com/photo-1730514784243-f0e7f09c9f50?w=1600&q=85&auto=format&fit=crop");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(8,12,20,0.92) 45%, rgba(8,12,20,0.55) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 0 60px;
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 48px;
+      font-weight: 400;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 40px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 40px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--white);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid var(--border);
+    }
+
+    .stat-item {
+      padding: 36px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-num sup { font-size: 1.2rem; vertical-align: super; }
+    .stat-num sub { font-size: 1rem; }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== SECTION COMMON ===== */
+    section { padding: 100px 40px; }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 60px;
+      max-width: 520px;
+    }
+
+    /* ===== TROUBLE ===== */
+    .trouble { background: var(--dark2); }
+
+    .trouble-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .trouble-card {
+      background: var(--card);
+      padding: 44px 24px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      transition: background 0.25s, border-color 0.25s;
+      border-bottom: 2px solid transparent;
+    }
+
+    .trouble-card:hover {
+      background: #1a2436;
+      border-bottom-color: var(--red);
+    }
+
+    .trouble-icon-wrap {
+      width: 90px;
+      height: 90px;
+      min-width: 90px;
+      background: rgba(232,34,42,0.08);
+      border: 1px solid rgba(232,34,42,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      transition: background 0.25s, border-color 0.25s;
+    }
+
+    .trouble-card:hover .trouble-icon-wrap {
+      background: rgba(232,34,42,0.18);
+      border-color: rgba(232,34,42,0.6);
+    }
+
+    .trouble-card p {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+    }
+
+    @media (max-width: 768px) {
+      .trouble-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .trouble-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--dark); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .service-card {
+      background: var(--card);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+
+    .service-card:hover { background: #1a2436; }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover::before { transform: scaleY(1); }
+
+    .service-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: rgba(232,34,42,0.45);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .service-icon { font-size: 1.8rem; margin-bottom: 14px; }
+
+    .service-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CASES ===== */
+    .cases { background: var(--dark2); }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .case-card {
+      background: var(--card);
+      padding: 36px 28px;
+      transition: background 0.2s;
+    }
+
+    .case-card:hover { background: #1a2436; }
+
+    .case-tag {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .case-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .case-card .case-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .case-price {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .case-price .price-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .cases-note {
+      margin-top: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .cases-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .cases-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== WHY ===== */
+    .why { background: var(--dark); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .why-card {
+      background: var(--card);
+      padding: 48px 32px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+
+    .why-card:hover { background: #1a2436; }
+
+    .why-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .why-num span { font-size: 1.4rem; }
+
+    .why-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .why-card p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    @media (max-width: 768px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery { background: var(--dark2); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 300px;
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75);
+      transition: transform 0.5s ease, filter 0.3s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.9);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item { height: 220px; }
+    }
+
+    /* ===== FLOW ===== */
+    .flow { background: var(--dark); }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .flow-step {
+      background: var(--card);
+      padding: 40px 28px;
+      position: relative;
+    }
+
+    .flow-step-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(232,34,42,0.15);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .flow-step h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    .flow-step p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    @media (max-width: 768px) {
+      .flow-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .flow-steps { grid-template-columns: 1fr; }
+    }
+
+    /* ===== AREA ===== */
+    .area { background: var(--dark2); }
+
+    .area-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .area-tag {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 7px 18px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .area-tag:hover {
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    /* ===== VOICE ===== */
+    .voice { background: var(--dark); }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .voice-card {
+      background: var(--card);
+      padding: 36px 28px;
+      transition: background 0.2s;
+    }
+
+    .voice-card:hover { background: #1a2436; }
+
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+
+    .voice-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .voice-divider {
+      width: 24px;
+      height: 1px;
+      background: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .voice-name {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .voice-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .voice-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--dark2); }
+
+    .faq-list {
+      max-width: 800px;
+      border: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-q {
+      padding: 22px 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 0.92rem;
+      font-family: inherit;
+      color: var(--white);
+      cursor: default;
+    }
+
+    .faq-q .q-icon {
+      color: var(--red);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      min-width: 20px;
+      line-height: 1.4;
+    }
+
+    .faq-a {
+      padding: 0 28px 22px 64px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    /* ===== CTA ===== */
+    .cta-bottom {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      padding: 120px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bottom::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(232,34,42,0.08) 0%, transparent 70%);
+    }
+
+    .cta-bottom > * { position: relative; z-index: 1; }
+
+    .cta-bottom h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .cta-bottom p {
+      color: var(--muted);
+      margin-bottom: 50px;
+      font-size: 0.95rem;
+    }
+
+    .cta-tel {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .cta-tel a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .cta-tel a:hover { opacity: 0.8; }
+
+    .cta-sub {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 40px;
+    }
+
+    .btn-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #06C755;
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 40px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .btn-line:hover { opacity: 0.85; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-copy {
+      color: var(--muted);
+      font-size: 0.78rem;
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    /* ===== FLOAT TEL ===== */
+    .float-tel {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      display: none;
+    }
+
+    .float-tel a {
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 24px rgba(232,34,42,0.5);
+    }
+
+    @media (max-width: 768px) {
+      .float-tel { display: block; }
+      section { padding: 70px 20px; }
+      footer { padding: 24px 20px; }
+      .hero-content { padding: 0 24px; }
+      .hero-scroll { left: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">🦙 アルパカ<span class="logo-accent">レッカー</span></div>
+  <div class="header-right">
+    <a href="tel:0120-966-821" class="header-tel-link">
+      📞 <span>0120-966-821</span>
+    </a>
+    <a href="tel:0120-966-821" class="btn-header">今すぐ相談</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">📍 兵庫県全域 24時間対応</div>
+    <h1>
+      困ったその瞬間、<br>
+      <em>最短20分</em>で<br>
+      駆けつける。
+    </h1>
+    <p class="hero-sub">
+      バッテリー上がり・パンク・事故搬送・エンジン不動<br>
+      深夜・早朝・高速道路もアルパカレッカーにお任せください。
+    </p>
+    <div class="hero-actions">
+      <a href="tel:0120-966-821" class="btn-primary">📞 今すぐ電話する</a>
+      <a href="#" class="btn-secondary">💬 LINEで相談する</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num"><span class="count-num" data-target="20">0</span><sub>分</sub></div>
+      <div class="stat-label">最短到着時間</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="count-num" data-target="24">0</span><sub>h</sub></div>
+      <div class="stat-label">365日受付中</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="count-num" data-target="96">0</span><sub>%</sub></div>
+      <div class="stat-label">お客様満足度</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">¥0</div>
+      <div class="stat-label">電話相談・見積もり無料</div>
+    </div>
+  </div>
+</div>
+
+<!-- TROUBLE -->
+<section class="trouble">
+  <div class="container">
+    <div class="section-eyebrow">Trouble</div>
+    <h2 class="section-title">こんなお困りごとはありませんか？</h2>
+    <p class="section-desc">どんな状況でも、まずはお電話ください。電話・LINEで料金の目安をご案内します。</p>
+    <div class="trouble-grid">
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">🔋</div>
+        <p>バッテリーが<br>上がってしまった</p>
+      </div>
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">🛞</div>
+        <p>タイヤが<br>パンクした</p>
+      </div>
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">⛽</div>
+        <p>燃料が<br>切れてしまった</p>
+      </div>
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">🚨</div>
+        <p>事故を起こして<br>自走できない</p>
+      </div>
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">🚙</div>
+        <p>エンジンが<br>かからない</p>
+      </div>
+      <div class="trouble-card">
+        <div class="trouble-icon-wrap">🏔️</div>
+        <p>脱輪・スタックで<br>動けなくなった</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">対応サービス一覧</h2>
+    <p class="section-desc">高速道路・山間部まで、あらゆる現場に対応します。</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <div class="service-icon">🚨</div>
+        <h3>事故時のレッカー搬送</h3>
+        <p>交通事故発生時、現場から修理工場・ディーラーまで安全に搬送します。保険会社への連絡中もそのまま待機可能。深夜・高速道路にも対応。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <div class="service-icon">🚛</div>
+        <h3>故障車のレッカー移動</h3>
+        <p>エンジントラブル・自走不能になった車を最寄りのディーラーや修理工場まで搬送します。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <div class="service-icon">⚡</div>
+        <h3>バッテリー上がり</h3>
+        <p>ジャンプスタートで素早く解決。バッテリー交換が必要な場合も現場で対応可能です。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <div class="service-icon">🛞</div>
+        <h3>タイヤ交換・パンク修理</h3>
+        <p>スペアタイヤへの交換やパンク修理を現場で実施。タイヤがない場合も手配します。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <div class="service-icon">⛽</div>
+        <h3>ガス欠・燃料補給</h3>
+        <p>現場への燃料補給サービス。ガソリン・軽油どちらにも対応しています。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <div class="service-icon">🏔️</div>
+        <h3>脱輪・スタック救出</h3>
+        <p>溝や砂地にはまった車をウインチで引き上げます。オフロード・山道も対応。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases">
+  <div class="container">
+    <div class="section-eyebrow">Real Cases</div>
+    <h2 class="section-title">実際の搬送費用の例</h2>
+    <p class="section-desc">JAF料金を参考に、実際の相場に基づいた費用の目安です。</p>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-tag">事故搬送</div>
+        <h3>追突事故・自走不能から修理工場まで搬送</h3>
+        <p class="case-desc">神戸市内で追突事故。フロント損傷で自走不能となり、近隣の修理工場まで搬送。保険会社への連絡対応もサポート。</p>
+        <div class="case-price">¥20,000〜
+          <span class="price-note">距離・状況により変動</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">エンジン不動</div>
+        <h3>駐車場でエンジンかからずディーラーへ搬送</h3>
+        <p class="case-desc">スーパーの駐車場でエンジンが不動に。ジャンプスタートを試みたが回復せず、最寄りのディーラーまで搬送。</p>
+        <div class="case-price">¥18,000〜
+          <span class="price-note">距離・状況により変動</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">高速道路</div>
+        <h3>阪神高速走行中にタイヤバースト</h3>
+        <p class="case-desc">阪神高速でタイヤがバースト。路肩に停車後、スペアタイヤへ交換。高速道路割増・通行料が加算されます。</p>
+        <div class="case-price">¥32,000〜
+          <span class="price-note">高速料・状況により変動</span>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-tag">深夜対応</div>
+        <h3>深夜2時・外出先でのバッテリー上がり</h3>
+        <p class="case-desc">飲食店の駐車場で深夜にバッテリーが上がりご連絡。25分以内に到着し、ジャンプスタートで即解決。</p>
+        <div class="case-price">¥8,000〜
+          <span class="price-note">車種・状況により変動</span>
+        </div>
+      </div>
+    </div>
+    <p class="cases-note">※ 料金は搬送距離・車種・作業内容によって異なります。出動前に電話・LINEで料金の目安をご案内します。</p>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div class="container">
+    <div class="section-eyebrow">Why Us</div>
+    <h2 class="section-title">選ばれる4つの理由</h2>
+    <p class="section-desc">迅速・誠実・明朗な対応でお客様に選ばれ続けています。</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">20<span>分</span></div>
+        <h3>最短20分で到着</h3>
+        <p>兵庫県内に複数の拠点を配置。通報からの最速対応を実現しています。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">24<span>h</span></div>
+        <h3>24時間365日対応</h3>
+        <p>深夜・早朝・休日も変わらず対応。困ったときにいつでもかけてください。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">¥0</div>
+        <h3>電話・LINEで料金の目安をご案内</h3>
+        <p>状況をお聞きし、出動前に料金の目安をお伝えします。ご納得いただいてから出動します。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-num">96<span>%</span></div>
+        <h3>高い顧客満足度</h3>
+        <p>丁寧な対応と確かな技術で、お客様から高い評価をいただいています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <div class="container">
+    <div class="section-eyebrow">Fleet</div>
+    <h2 class="section-title">車両・作業の様子</h2>
+    <p class="section-desc" style="margin-bottom: 40px;">万全の体制で現場へ急行します。</p>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1730514784243-f0e7f09c9f50?w=900&q=80&auto=format&fit=crop" alt="兵庫県のレッカー車が事故車を牽引している様子">
+        <div class="gallery-caption">レッカー移動・牽引</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1742069029207-0aacf8fa4401?w=600&q=80&auto=format&fit=crop" alt="神戸・姫路対応のロードサービス積載車">
+        <div class="gallery-caption">積載車による搬送</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1686966933735-305bd8fe0a77?w=600&q=80&auto=format&fit=crop" alt="積載車に車を積み込んでいる様子">
+        <div class="gallery-caption">積み込み作業</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow">
+  <div class="container">
+    <div class="section-eyebrow">Flow</div>
+    <h2 class="section-title">ご利用の流れ</h2>
+    <p class="section-desc" style="margin-bottom: 40px;">お電話一本でスムーズに対応します。</p>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <h3>📞 お電話ください</h3>
+        <p>24時間いつでも受付中。現在地・車種・トラブルの状況をお知らせください。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <h3>💰 料金の目安をご案内</h3>
+        <p>電話・LINEで料金の目安をお伝えします。ご納得いただいてから出動します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <h3>🚛 スタッフが現場へ急行</h3>
+        <p>最寄りのスタッフが最短20分で駆けつけます。安全な場所でお待ちください。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">04</div>
+        <h3>✅ 作業完了・お支払い</h3>
+        <p>迅速・丁寧に作業完了。現金・クレジットカード・PayPayに対応。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AREA -->
+<section class="area">
+  <div class="container">
+    <div class="section-eyebrow">Service Area</div>
+    <h2 class="section-title">兵庫県全域に対応しています</h2>
+    <p class="section-desc">高速道路・山間部・淡路島を含む兵庫県内全域に対応。</p>
+    <div class="area-tags">
+      <span class="area-tag">神戸市</span>
+      <span class="area-tag">姫路市</span>
+      <span class="area-tag">尼崎市</span>
+      <span class="area-tag">明石市</span>
+      <span class="area-tag">西宮市</span>
+      <span class="area-tag">芦屋市</span>
+      <span class="area-tag">伊丹市</span>
+      <span class="area-tag">宝塚市</span>
+      <span class="area-tag">川西市</span>
+      <span class="area-tag">三田市</span>
+      <span class="area-tag">加古川市</span>
+      <span class="area-tag">高砂市</span>
+      <span class="area-tag">相生市</span>
+      <span class="area-tag">たつの市</span>
+      <span class="area-tag">豊岡市</span>
+      <span class="area-tag">丹波篠山市</span>
+      <span class="area-tag">淡路市</span>
+      <span class="area-tag">洲本市</span>
+      <span class="area-tag">その他兵庫県内</span>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE -->
+<section class="voice">
+  <div class="container">
+    <div class="section-eyebrow">Voice</div>
+    <h2 class="section-title">お客様の声</h2>
+    <p class="section-desc" style="margin-bottom: 40px;">実際にご利用いただいたお客様からのご感想です。</p>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>深夜2時にエンジンがかからなくなり、慌てて電話しました。25分ほどで来てくれて、本当に助かりました。スタッフの方もとても親切で安心できました。</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">神戸市在住・30代女性</div>
+      </div>
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>高速道路でパンクしてしまい、初めてレッカーを呼びました。電話口から丁寧に対応していただき、料金も事前にしっかり説明してくれたので安心でした。</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">姫路市在住・40代男性</div>
+      </div>
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>山道でスタックしてしまい途方に暮れていましたが、電話してすぐ来てくれました。手際よく引き上げてもらえて本当に助かりました！</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">西宮市在住・50代女性</div>
+      </div>
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>会社の駐車場でバッテリーが上がってしまい、仕事終わりに困り果てて連絡しました。電話口で料金の目安を教えてもらえて安心して待てました。</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">尼崎市在住・20代男性</div>
+      </div>
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>交差点で追突されてフロントが大破し、自走できない状態になりました。保険会社に連絡している間もずっと待機してくれて、対応が本当に誠実でした。</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">明石市在住・60代男性</div>
+      </div>
+      <div class="voice-card">
+        <div class="stars">★★★★★</div>
+        <p>高速で給油を忘れてガス欠になってしまい、恥ずかしくて電話するのをためらいましたが、スタッフの方がとても優しく対応してくれました。</p>
+        <div class="voice-divider"></div>
+        <div class="voice-name">宝塚市在住・30代女性</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">よくあるご質問</h2>
+    <p class="section-desc" style="margin-bottom: 40px;"></p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q"><span class="q-icon">Q</span>深夜・早朝でも対応してもらえますか？</div>
+        <div class="faq-a">はい、24時間365日・年中無休で対応しております。深夜・早朝の追加料金もいただいておりませんので、どうぞお気軽にご連絡ください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="q-icon">Q</span>見積もりは無料ですか？</div>
+        <div class="faq-a">はい、電話・LINEでのご案内は無料です。トラブルの状況をお聞きし、出動前に料金の目安をお伝えします。ご納得いただいてから作業を開始します。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="q-icon">Q</span>高速道路でのトラブルも対応できますか？</div>
+        <div class="faq-a">はい、高速道路・山間部・離島（淡路島）を含む兵庫県内全域に対応しております。まずはお電話でご相談ください。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="q-icon">Q</span>支払い方法を教えてください。</div>
+        <div class="faq-a">現金・クレジットカード（VISA・Mastercard・JCB等）・交通系ICカード・PayPayに対応しております。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span class="q-icon">Q</span>自動車保険のロードサービスとどう違いますか？</div>
+        <div class="faq-a">保険のロードサービスは利用条件や回数制限がある場合があります。当社は制限なく何度でもご利用可能です。保険が使えない状況でも迅速に対応します。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-bottom">
+  <div class="section-eyebrow" style="justify-content: center;">Contact</div>
+  <h2>今すぐお電話ください</h2>
+  <p>24時間365日・電話・LINEで料金の目安をご案内します</p>
+  <div class="cta-tel">
+    <a href="tel:0120-966-821">📞 0120-966-821</a>
+  </div>
+  <div class="cta-sub">受付時間：24時間365日対応</div>
+  <a href="https://line.me/R/ti/p/@038fhykf" class="btn-line">💬 LINEで相談する</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🦙 アルパカ<span>レッカー</span></div>
+  <div class="footer-links">
+    <a href="#">プライバシーポリシー</a>
+    <a href="#">特定商取引法に基づく表記</a>
+  </div>
+  <div class="footer-copy">© 2025 アルパカレッカー All Rights Reserved.</div>
+</footer>
+
+<!-- FLOAT TEL -->
+<div class="float-tel">
+  <a href="tel:0120-966-821">📞</a>
+</div>
+
+<script>
+  const counters = document.querySelectorAll('.count-num');
+
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const start = performance.now();
+
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    };
+
+    requestAnimationFrame(update);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        counters.forEach(el => animateCount(el));
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+
+  observer.observe(document.querySelector('.stats-bar'));
+</script>
+</body>
+</html>

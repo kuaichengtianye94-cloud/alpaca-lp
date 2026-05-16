@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アルパカレッカー｜電話対応マニュアル</title>
+  <link rel="manifest" href="manifest-manual.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="電話マニュアル">
+  <link rel="apple-touch-icon" href="icon-manual.svg">
+  <meta name="theme-color" content="#0D1B3E">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; font-size: 14px; color: #1a1a2e; background: #f5f7fa; padding: 20px; }
+
+    .page { max-width: 860px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+    .header { background: #0D1B3E; color: #fff; padding: 20px 28px; }
+    .header h1 { font-size: 18px; font-weight: 900; }
+    .header .sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+    .section { padding: 20px 28px; border-bottom: 2px solid #f0f0f0; }
+    .section:last-child { border-bottom: none; }
+    .section h2 { font-size: 15px; font-weight: 900; color: #E8222A; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid #E8222A; }
+    .section h3 { font-size: 13px; font-weight: 900; color: #0D1B3E; margin: 14px 0 8px; }
+
+    /* 基本フロー */
+    .flow { display: flex; gap: 0; margin-bottom: 8px; flex-wrap: wrap; }
+    .flow-step { background: #0D1B3E; color: #fff; padding: 8px 14px; font-size: 12px; font-weight: 700; position: relative; margin-right: 20px; margin-bottom: 8px; border-radius: 4px; }
+    .flow-step::after { content: '▶'; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); color: #0D1B3E; font-size: 14px; }
+    .flow-step:last-child::after { display: none; }
+    .flow-step .num { display: block; font-size: 10px; color: #FFD700; margin-bottom: 2px; }
+
+    /* 確認事項チェックリスト */
+    .checklist { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .checklist li { background: #f5f7fa; border-left: 4px solid #0D1B3E; padding: 8px 12px; font-size: 13px; border-radius: 0 4px 4px 0; }
+    .checklist li::before { content: '□ '; font-weight: 900; color: #E8222A; }
+
+    /* トラブル別対応 */
+    .trouble-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .trouble-card { border: 2px solid #dde3ee; border-radius: 8px; overflow: hidden; }
+    .trouble-card .t-header { background: #0D1B3E; color: #fff; padding: 8px 12px; font-size: 13px; font-weight: 900; }
+    .trouble-card .t-body { padding: 10px 12px; font-size: 12px; line-height: 1.7; }
+    .trouble-card.caution .t-header { background: #E8222A; }
+
+    /* セリフ */
+    .script { background: #e8f4fd; border-left: 4px solid #0066cc; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px; line-height: 1.7; margin: 8px 0; }
+    .script .label { font-size: 10px; font-weight: 900; color: #0066cc; margin-bottom: 4px; display: block; }
+
+    .warn { background: #fff3cd; border-left: 4px solid #E8222A; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 13px; line-height: 1.7; margin: 8px 0; }
+    .warn .label { font-size: 10px; font-weight: 900; color: #E8222A; margin-bottom: 4px; display: block; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th { background: #0D1B3E; color: #fff; padding: 8px 10px; text-align: left; }
+    td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+    tr:nth-child(even) td { background: #f9fafc; }
+
+    .print-btn { display: block; margin: 0 28px 24px; padding: 12px; background: #E8222A; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .page { box-shadow: none; border-radius: 0; }
+      .print-btn { display: none; }
+      .trouble-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <h1>📞 アルパカレッカー｜電話対応マニュアル</h1>
+    <div class="sub">社内用｜許可番号：神兵輸第744号｜0120-966-821</div>
+  </div>
+
+  <!-- 基本フロー -->
+  <div class="section">
+    <h2>📋 電話対応の基本フロー</h2>
+    <div class="flow">
+      <div class="flow-step"><span class="num">STEP 1</span>状況確認</div>
+      <div class="flow-step"><span class="num">STEP 2</span>場所確認</div>
+      <div class="flow-step"><span class="num">STEP 3</span>搬送先確認</div>
+      <div class="flow-step"><span class="num">STEP 4</span>料金案内</div>
+      <div class="flow-step"><span class="num">STEP 5</span>出動確定</div>
+    </div>
+
+    <div class="script">
+      <span class="label">📞 電話に出るとき</span>
+      「お電話ありがとうございます、アルパカレッカーです。」
+    </div>
+  </div>
+
+  <!-- 確認事項 -->
+  <div class="section">
+    <h2>✅ 必ず確認する6項目</h2>
+    <ul class="checklist">
+      <li>何が起きたか（トラブルの内容）</li>
+      <li>現在地（住所・目印・高速か一般道か）</li>
+      <li>車種・メーカー</li>
+      <li>搬送先（工場名・住所）</li>
+      <li>今の時刻（夜間割増の確認）</li>
+      <li>お名前・折り返し電話番号</li>
+    </ul>
+  </div>
+
+  <!-- 料金案内 -->
+  <div class="section">
+    <h2>💴 料金案内のしかた</h2>
+    <div class="script">
+      <span class="label">📞 料金を伝えるとき</span>
+      「料金の目安をお伝えします。○○（作業内容）で、現場まで約△km・搬送先まで約□kmですと、○○円〜○○円ほどになります。現場を確認してから正確な金額をお伝えします。よろしいですか？」
+    </div>
+    <div class="warn">
+      <span class="label">⚠️ 注意</span>
+      必ず出動前に料金の目安を伝えてから確認を取ること。「ご納得いただいてから出動します」のスタンスを守る。
+    </div>
+
+    <h3>夜間割増（20〜8時）</h3>
+    <div class="script">
+      <span class="label">📞 夜間の場合</span>
+      「夜間のため、通常料金に3割増しとなります。あらかじめご了承ください。」
+    </div>
+
+    <h3>到着時間を聞かれたとき</h3>
+    <div class="script">
+      <span class="label">📞 伝え方</span>
+      「現在地から確認しますが、最短20分〜30分ほどを目安にお考えください。道路状況により前後することがございます。」
+    </div>
+
+    <h3>出動後のキャンセル</h3>
+    <div class="script">
+      <span class="label">📞 出動前に必ず伝える</span>
+      「出動後にキャンセルをご希望の場合は、出動費として実費をご負担いただく形になります。あらかじめご了承いただけますでしょうか。」
+    </div>
+    <table style="margin:8px 0;">
+      <thead>
+        <tr><th>タイミング</th><th>請求金額</th><th>例（15km走行の場合）</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>現場到着前</strong></td>
+          <td>空車回送料金のみ<br>（距離 × 605円）</td>
+          <td>15km × 605円 ＝ ¥9,075</td>
+        </tr>
+        <tr>
+          <td><strong>現場到着後</strong></td>
+          <td>基本料金の50% ＋ 空車回送料金</td>
+          <td>¥6,000 ＋ ¥9,075 ＝ ¥15,075</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="warn">
+      <span class="label">⚠️ 注意</span>
+      キャンセルの可能性がありそうな案件（保険確認中・家族と相談中など）は、出動前に必ずこの説明をしてから確認を取ること。
+    </div>
+    <div class="warn">
+      <span class="label">🚫 出動保留ルール</span>
+      以下の状態のお客さんには、確定するまで出動しない。現場到着前キャンセルは回収手段がなく、泣き寝入りになるリスクが高い。<br><br>
+      ・「保険会社に確認してから折り返します」<br>
+      ・「家族・夫・妻と相談してから決めます」<br>
+      ・「他の業者にも聞いてみます」<br><br>
+      <strong>→ 「確定したらまたお電話ください」と伝えて、折り返し確認を待つ。</strong>
+    </div>
+  </div>
+
+  <!-- トラブル別対応 -->
+  <div class="section">
+    <h2>🚗 トラブル別・対応ポイント</h2>
+    <div class="trouble-grid">
+
+      <div class="trouble-card">
+        <div class="t-header">🔋 バッテリー上がり</div>
+        <div class="t-body">
+          <strong>確認：</strong>エンジンは完全に沈黙か、セルが弱いだけか<br>
+          <strong>対応：</strong>ジャンプスタートで対応。復旧しない場合はバッテリー交換または搬送を提案<br>
+          <strong>目安料金：</strong>¥12,000〜（搬送なし）
+        </div>
+      </div>
+
+      <div class="trouble-card caution">
+        <div class="t-header">🛞 パンク（スペアなし・修理キットあり）</div>
+        <div class="t-body">
+          <strong>⚠️ 必ず事前説明：</strong><br>
+          「シーリング剤（修理キット）を使うと、タイヤ内部が固まって後から修理・交換ができなくなる場合があります。タイヤショップへの搬送でもご対応できますが、どうされますか？」<br><br>
+          お客さんがキット使用を選んだ場合のみ作業する。
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🛞 パンク（スペアあり）</div>
+        <div class="t-body">
+          <strong>対応：</strong>スペアタイヤへ交換<br>
+          <strong>確認：</strong>スペアタイヤの状態・空気圧は問題ないか<br>
+          <strong>目安料金：</strong>¥12,000〜
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">⛽ ガス欠</div>
+        <div class="t-body">
+          <strong>対応：</strong>燃料を現場へ持参して補給<br>
+          <strong>確認：</strong>ガソリンか軽油か（必ず確認）<br>
+          <strong>目安料金：</strong>¥8,000〜＋燃料代実費<br>
+          ※ 軽油とガソリンの間違いは重大事故につながるため必ず確認
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🏔️ 脱輪・スタック</div>
+        <div class="t-body">
+          <strong>確認：</strong>どんな状況か（側溝・砂地・雪道・斜面など）<br>
+          <strong>対応：</strong>ウインチで引き上げ。状況により料金が大幅変動<br>
+          <strong>目安料金：</strong>¥25,000〜（状況により要見積）<br>
+          ※ 横転・急斜面は特に高額になることを事前に伝える
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🚨 事故搬送</div>
+        <div class="t-body">
+          <strong>確認：</strong>けが人はいないか・警察は来ているか<br>
+          <strong>対応：</strong>警察・保険会社の手続き中も待機可能<br>
+          <strong>目安料金：</strong>¥25,000〜（距離料金別途）<br>
+          ※ 保険のロードサービスが使えるか確認を促す
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🛣️ 高速道路</div>
+        <div class="t-body">
+          <strong>確認：</strong>路肩に停車できているか・ハザードはつけているか<br>
+          <strong>対応：</strong>安全確保を最優先。高速料金は実費別途<br>
+          <strong>目安料金：</strong>¥35,000〜（高速料金別・距離料金別途）
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🌊 冠水・水没</div>
+        <div class="t-body">
+          <strong>確認：</strong>水深・場所・エンジンをかけたか<br>
+          <strong>注意：</strong>「絶対にエンジンをかけないでください」と伝える<br>
+          <strong>目安料金：</strong>¥50,000〜（状況により要見積）<br>
+          ※ クレーンが必要な場合は別途手配・費用増
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">📋 車検切れ搬送</div>
+        <div class="t-body">
+          <strong>対応：</strong>有償運送許可（神兵輸第744号）により合法的に搬送可能<br>
+          <strong>目安料金：</strong>¥20,000〜（距離料金別途）<br>
+          ※ 積載車を使用。引っ張る搬送は不可。
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">🔧 エンジン不動・故障</div>
+        <div class="t-body">
+          <strong>確認：</strong>ジャンプスタートを試みたか・エラー表示はあるか<br>
+          <strong>対応：</strong>ジャンプスタート試行→回復しなければ搬送<br>
+          <strong>目安料金：</strong>¥15,000〜（距離料金別途）
+        </div>
+      </div>
+
+      <div class="trouble-card caution">
+        <div class="t-header">🔑 鍵閉じ込め（インロック）</div>
+        <div class="t-body">
+          <strong>⚠️ 対応不可：</strong>当社ではインロックの対応は行っていません<br><br>
+          <div class="script" style="margin:6px 0;">
+            <span class="label">📞 断り方</span>
+            「大変申し訳ございませんが、当社では鍵の閉じ込めには対応しておりません。JAF・保険会社のロードサービス、または鍵屋さんにご連絡いただけますでしょうか。」
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 保険対応 -->
+  <div class="section">
+    <h2>🛡️ 「保険を使いたい」と言われた場合</h2>
+    <div class="trouble-grid">
+
+      <div class="trouble-card">
+        <div class="t-header">① 保険のロードサービスを使いたい</div>
+        <div class="t-body">
+          <strong>対応：</strong>保険会社へ直接電話するよう案内する<br><br>
+          <div class="script" style="margin:6px 0;">
+            <span class="label">📞 伝え方</span>
+            「大変申し訳ございませんが、当社は現在保険会社のロードサービスとは提携しておりません。保険会社へ直接ご連絡いただくか、当社へ直接依頼していただく形になります。」
+          </div>
+          ※ 保険が使えない・時間がかかる場合はそのまま直接依頼に移行できる
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">② 料金を後で保険に請求したい</div>
+        <div class="t-body">
+          <strong>対応：</strong>一旦お客さんに支払ってもらい、領収書を渡す<br><br>
+          <div class="script" style="margin:6px 0;">
+            <span class="label">📞 伝え方</span>
+            「当社へお支払いいただいた後、領収書をお渡しします。保険会社への請求はお客さまご自身で行っていただく形になります。」
+          </div>
+          ⚠️ 領収書は必ず発行すること（社名・日付・金額・内容を記載）
+        </div>
+      </div>
+
+      <div class="trouble-card caution">
+        <div class="t-header">③ 保険のロードサービスが使えない場合</div>
+        <div class="t-body">
+          以下の場合はアルパカレッカーが対応できる強みをアピール：<br><br>
+          ・車検切れで保険が使えない<br>
+          ・ロードサービスの回数制限を超えた<br>
+          ・JAF未加入<br>
+          ・保険適用外のトラブル<br><br>
+          <div class="script" style="margin:6px 0;">
+            <span class="label">📞 アピール例</span>
+            「当社は有償運送許可を取得しており、車検切れや保険対象外の場合でも対応できます。まずは料金の目安をお伝えしますのでご検討ください。」
+          </div>
+        </div>
+      </div>
+
+      <div class="trouble-card">
+        <div class="t-header">④ 将来的な対応（提携後）</div>
+        <div class="t-body">
+          JAF・保険会社との提携が成立した場合は、保険会社から直接案件が入る仕組みになる。<br><br>
+          提携までの間は直接依頼の獲得に集中する。
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NG対応 -->
+  <div class="section">
+    <h2>🚫 やってはいけないこと</h2>
+    <table>
+      <thead>
+        <tr><th>NG</th><th>理由</th><th>正しい対応</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>料金を言わずに出動する</td>
+          <td>後からトラブルになる</td>
+          <td>必ず目安を伝えてから出動</td>
+        </tr>
+        <tr>
+          <td>ガス欠でガソリン・軽油を確認しない</td>
+          <td>エンジン破損につながる重大事故</td>
+          <td>必ず車検証または車種で確認</td>
+        </tr>
+        <tr>
+          <td>パンク修理キット使用の説明なしに作業</td>
+          <td>タイヤ修理不能になりクレームになる</td>
+          <td>使用前に必ずデメリットを説明して同意を得る</td>
+        </tr>
+        <tr>
+          <td>水没車でエンジンをかけさせる</td>
+          <td>エンジン内部が破損する</td>
+          <td>「絶対にかけないで」と電話口で伝える</td>
+        </tr>
+        <tr>
+          <td>車検切れ車を引っ張って搬送</td>
+          <td>無車検運行になり違法</td>
+          <td>必ず積載車で搬送する</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ 印刷・PDF保存</button>
+</div>
+<script>
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+</script>
+</body>
+</html>
