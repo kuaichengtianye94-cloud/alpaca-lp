@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>アルパカレッカー｜料金計算シート</title>
+  <link rel="manifest" href="manifest-calc.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="料金計算">
+  <link rel="apple-touch-icon" href="icon-calc.svg">
+  <meta name="theme-color" content="#E8222A">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans', 'Meiryo', sans-serif; font-size: 14px; color: #1a1a2e; background: #f5f7fa; }
+
+    .page { max-width: 800px; margin: 20px auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+
+    /* ヘッダー */
+    .header { background: #0D1B3E; color: #fff; padding: 20px 28px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 18px; font-weight: 900; }
+    .header .sub { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .header .permit { font-size: 11px; color: #FFD700; margin-top: 4px; }
+
+    /* 計算エリア */
+    .calc-area { padding: 24px 28px; border-bottom: 2px solid #f0f0f0; }
+    .calc-area h2 { font-size: 15px; font-weight: 900; color: #E8222A; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E8222A; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 700; color: #555; margin-bottom: 6px; }
+    .form-group select, .form-group input { width: 100%; padding: 10px 12px; border: 2px solid #dde3ee; border-radius: 6px; font-size: 14px; font-family: inherit; }
+    .form-group select:focus, .form-group input:focus { outline: none; border-color: #E8222A; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .night-toggle { display: flex; align-items: center; gap: 12px; background: #1a1a2e; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; cursor: pointer; }
+    .night-toggle input[type=checkbox] { width: 20px; height: 20px; accent-color: #FFD700; cursor: pointer; }
+    .night-toggle label { color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .night-toggle .night-sub { color: rgba(255,255,255,0.5); font-size: 11px; margin-left: auto; }
+
+    .result-box { background: #0D1B3E; color: #fff; border-radius: 8px; padding: 20px 24px; margin-top: 4px; }
+    .result-box .result-title { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
+    .result-row:last-of-type { border-bottom: none; }
+    .result-row.total { margin-top: 8px; padding-top: 12px; border-top: 2px solid #FFD700; border-bottom: none; }
+    .result-row.total .label { font-size: 15px; font-weight: 900; color: #FFD700; }
+    .result-row.total .amount { font-size: 26px; font-weight: 900; color: #FFD700; }
+    .result-row .label { color: rgba(255,255,255,0.7); }
+    .result-row .amount { font-weight: 700; color: #fff; }
+    .note-text { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 10px; }
+
+    /* 料金表 */
+    .price-area { padding: 24px 28px; }
+    .price-area h2 { font-size: 15px; font-weight: 900; color: #E8222A; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #E8222A; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; }
+    th { background: #0D1B3E; color: #fff; padding: 8px 10px; text-align: left; font-size: 11px; }
+    td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+    tr:nth-child(even) td { background: #f9fafc; }
+    .highlight td { background: #fff8e1 !important; font-weight: 700; }
+
+    .distance-table { margin-bottom: 20px; }
+    .distance-table th { background: #E8222A; }
+
+    .tag { display: inline-block; background: #E8222A; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; margin-right: 4px; }
+    .tag.jaf { background: #0066cc; }
+
+    .memo { background: #fff8e1; border-left: 4px solid #FFD700; padding: 12px 16px; border-radius: 0 6px 6px 0; font-size: 12px; line-height: 1.8; margin-top: 8px; }
+    .memo strong { display: block; margin-bottom: 4px; font-size: 13px; }
+
+    /* 印刷 */
+    .print-btn { display: block; margin: 0 28px 24px; padding: 12px; background: #E8222A; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; text-align: center; }
+    .print-btn:hover { background: #c0161d; }
+
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; margin: 0; border-radius: 0; max-width: 100%; }
+      .print-btn { display: none; }
+      .calc-area { page-break-after: always; }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ヘッダー -->
+  <div class="header">
+    <div>
+      <h1>🚛 アルパカレッカー｜料金計算シート</h1>
+      <div class="sub">案件受付時の料金目安計算・作業相場確認用</div>
+      <div class="permit">有償運送許可：神兵輸第744号</div>
+    </div>
+    <div style="text-align:right; font-size:13px; color:rgba(255,255,255,0.8);">
+      📞 0120-966-821
+    </div>
+  </div>
+
+  <!-- 料金計算 -->
+  <div class="calc-area">
+    <h2>📱 料金かんたん計算</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>作業種類</label>
+        <select id="serviceType" onchange="calculate()">
+          <option value="8000">バッテリー上がり（ジャンプスタート）</option>
+          <option value="8000">タイヤ交換（スペアへ交換）</option>
+          <option value="5000">ガス欠・燃料補給（燃料代別）</option>
+          <option value="15000">脱輪・スタック救出</option>
+          <option value="10000">故障車搬送（エンジン不動など）</option>
+          <option value="20000">事故搬送</option>
+          <option value="25000">高速道路対応（高速料金別）</option>
+          <option value="50000">冠水・水没車の引き上げ・搬送</option>
+          <option value="10000">車検切れ車両の搬送</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>作業種類の基本料金（すべて税込）</label>
+        <input type="number" id="baseFee" value="12000" min="0" step="1000" onchange="calculate()" style="font-weight:700; color:#E8222A;">
+      </div>
+      <div class="form-group">
+        <label>📍 現場まで（空車回送）距離 km</label>
+        <input type="number" id="dist1" placeholder="例：15" min="0" step="1" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>🏁 搬送先まで（牽引輸送）距離 km</label>
+        <input type="number" id="dist2" placeholder="例：10" min="0" step="1" oninput="calculate()">
+      </div>
+    </div>
+
+    <div class="night-toggle" onclick="document.getElementById('nightCheck').click()">
+      <input type="checkbox" id="nightCheck" onchange="calculate()" onclick="event.stopPropagation()">
+      <label for="nightCheck">🌙 夜間料金（20〜8時）</label>
+      <span class="night-sub">+30% 割増</span>
+    </div>
+
+    <!-- 高速料金 -->
+    <div style="background:#1a2f5e; border-radius:8px; padding:14px 16px; margin-bottom:16px;">
+      <div style="color:#FFD700; font-size:12px; font-weight:900; margin-bottom:10px;">🛣️ 高速料金（中型車・ETC 目安）</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+        <div>
+          <label style="display:block; font-size:11px; color:rgba(255,255,255,0.6); margin-bottom:4px;">出発IC</label>
+          <select id="fromIC" onchange="calcToll()" style="width:100%; padding:8px 10px; border-radius:5px; border:none; font-size:12px; font-family:inherit; color:#1a1a2e; background:#fff;">
+            <option value="">選択...</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:11px; color:rgba(255,255,255,0.6); margin-bottom:4px;">到着IC</label>
+          <select id="toIC" onchange="calcToll()" style="width:100%; padding:8px 10px; border-radius:5px; border:none; font-size:12px; font-family:inherit; color:#1a1a2e; background:#fff;">
+            <option value="">選択...</option>
+          </select>
+        </div>
+      </div>
+      <div id="toll-estimate" style="font-size:11px; color:#FFD700; margin-bottom:8px; min-height:16px;"></div>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <label style="font-size:11px; color:rgba(255,255,255,0.6); white-space:nowrap;">高速料金（円）：</label>
+        <input type="number" id="tollFee" placeholder="自動入力・変更可" min="0" step="10" oninput="calculate()" style="flex:1; padding:8px 10px; border-radius:5px; border:none; font-size:14px; font-weight:700; color:#E8222A; font-family:inherit;">
+        <span style="color:rgba(255,255,255,0.6); font-size:12px;">円</span>
+      </div>
+      <div style="font-size:10px; color:rgba(255,255,255,0.4); margin-top:6px;">※ 目安料金。実際はETCの明細で確認してください。</div>
+    </div>
+
+    <div class="result-box">
+      <div class="result-title">── 料金内訳 ──</div>
+      <div class="result-row">
+        <span class="label">作業基本料金</span>
+        <span class="amount" id="r-base">¥0</span>
+      </div>
+      <div class="result-row">
+        <span class="label">空車回送（<span id="r-d1">0</span>km × 605円）</span>
+        <span class="amount" id="r-kaiso">¥0</span>
+      </div>
+      <div class="result-row">
+        <span class="label">牽引輸送（<span id="r-d2">0</span>km × 990円）</span>
+        <span class="amount" id="r-ken">¥0</span>
+      </div>
+      <div class="result-row" id="r-toll-row" style="display:none;">
+        <span class="label">🛣️ 高速料金（<span id="r-ic">-</span>）</span>
+        <span class="amount" id="r-toll">¥0</span>
+      </div>
+      <div class="result-row" id="r-night-row" style="display:none;">
+        <span class="label">🌙 夜間割増（+30%）</span>
+        <span class="amount" id="r-night">¥0</span>
+      </div>
+      <div class="result-row total">
+        <span class="label">合計（税込）</span>
+        <span class="amount" id="r-total">¥0</span>
+      </div>
+      <div class="note-text">※ 状況・作業内容により変動します。高速料金は目安込み・実際はETCの明細で確認。</div>
+    </div>
+  </div>
+
+  <!-- 距離料金表 -->
+  <div class="price-area">
+    <h2>📏 距離別料金早見表</h2>
+    <table class="distance-table">
+      <thead>
+        <tr>
+          <th>距離</th>
+          <th>空車回送のみ<br>（605円/km）</th>
+          <th>牽引輸送のみ<br>（990円/km）</th>
+          <th>往復合計<br>（同距離の場合）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>5km</td><td>¥3,025</td><td>¥4,950</td><td>¥7,975</td></tr>
+        <tr><td>10km</td><td>¥6,050</td><td>¥9,900</td><td>¥15,950</td></tr>
+        <tr><td>15km</td><td>¥9,075</td><td>¥14,850</td><td>¥23,925</td></tr>
+        <tr class="highlight"><td>20km</td><td>¥12,100</td><td>¥19,800</td><td>¥31,900</td></tr>
+        <tr><td>25km</td><td>¥15,125</td><td>¥24,750</td><td>¥39,875</td></tr>
+        <tr><td>30km</td><td>¥18,150</td><td>¥29,700</td><td>¥47,850</td></tr>
+        <tr><td>40km</td><td>¥24,200</td><td>¥39,600</td><td>¥63,800</td></tr>
+        <tr><td>50km</td><td>¥30,250</td><td>¥49,500</td><td>¥79,750</td></tr>
+      </tbody>
+    </table>
+
+    <h2>📋 作業別料金相場一覧</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>作業種類</th>
+          <th>民間相場</th>
+          <th>JAF非会員</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>バッテリー上がり</strong></td>
+          <td>¥8,000〜¥15,000</td>
+          <td>¥21,700〜</td>
+          <td>夜間は割増</td>
+        </tr>
+        <tr>
+          <td><strong>タイヤ交換</strong><br>（スペアタイヤへ）</td>
+          <td>¥8,000〜¥15,000</td>
+          <td>¥21,700〜</td>
+          <td>スペアなければ搬送に</td>
+        </tr>
+        <tr>
+          <td><strong>ガス欠・燃料補給</strong></td>
+          <td>¥5,000〜¥12,000</td>
+          <td>¥16,900〜</td>
+          <td>燃料代は別途実費</td>
+        </tr>
+        <tr>
+          <td><strong>脱輪・スタック救出</strong></td>
+          <td>¥15,000〜¥50,000</td>
+          <td>¥20,000〜</td>
+          <td>状況により大幅変動</td>
+        </tr>
+        <tr>
+          <td><strong>故障車搬送</strong><br>（エンジン不動など）</td>
+          <td>¥10,000〜+距離料金</td>
+          <td>¥15,700〜+距離料金</td>
+          <td>JAFは830円/km</td>
+        </tr>
+        <tr>
+          <td><strong>事故搬送</strong></td>
+          <td>¥20,000〜¥50,000</td>
+          <td>¥30,000〜</td>
+          <td>損傷状況による</td>
+        </tr>
+        <tr>
+          <td><strong>高速道路対応</strong></td>
+          <td>¥32,000〜¥60,000</td>
+          <td>¥47,000〜</td>
+          <td>高速料金実費別途</td>
+        </tr>
+        <tr>
+          <td><strong>冠水・水没搬送</strong></td>
+          <td>¥30,000〜¥100,000</td>
+          <td>¥50,000〜</td>
+          <td>状況により要見積</td>
+        </tr>
+        <tr>
+          <td><strong>車検切れ搬送</strong></td>
+          <td>¥15,000〜¥35,000</td>
+          <td>非対応</td>
+          <td>積載車使用・通常と同額</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="memo">
+      <strong>⚠️ 連絡時の確認事項</strong>
+      ① 現在地（市区町村）／ ② 搬送先の住所または工場名 ／ ③ 車種・車両サイズ ／ ④ トラブルの内容 ／ ⑤ 高速道路か一般道か ／ ⑥ 深夜・早朝か
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ PDFとして保存・印刷</button>
+</div>
+
+<script>
+  // 兵庫県内の高速道路ネットワーク [IC名A, IC名B, 距離km]
+  const HW = [
+    // 中国自動車道（東→西）
+    ['宝塚IC','神戸JCT',5], ['神戸JCT','西宮北IC',11], ['西宮北IC','吉川JCT',9],
+    ['吉川JCT','神戸三田IC',9], ['神戸三田IC','ひょうご東条IC',14],
+    ['ひょうご東条IC','滝野社IC',10], ['滝野社IC','加西IC',11],
+    ['加西IC','福崎IC',12], ['福崎IC','山崎IC',19],
+    ['山崎IC','山崎JCT',2], ['山崎JCT','佐用JCT',12], ['佐用JCT','佐用IC',2],
+    // 山陽自動車道（神戸JCT→西）
+    ['神戸JCT','三木小野IC',19], ['三木小野IC','三木JCT',5],
+    ['三木JCT','加古川IC',12], ['加古川IC','加古川西IC',5],
+    ['加古川西IC','播磨JCT',4], ['播磨JCT','姫路東IC',7],
+    ['姫路東IC','姫路西IC',6], ['姫路西IC','龍野IC',14],
+    ['龍野IC','龍野西IC',7], ['龍野西IC','赤穂IC',9],
+    // 播磨自動車道（播磨JCT→山崎JCT）
+    ['播磨JCT','播磨新宮IC',19], ['播磨新宮IC','山崎JCT',10],
+    // 舞鶴若狭自動車道（兵庫県区間：吉川JCT→春日JCT）
+    ['吉川JCT','吉川IC',3], ['吉川IC','三田西IC',5],
+    ['三田西IC','丹波IC',18], ['丹波IC','氷上IC',7], ['氷上IC','春日JCT',7],
+    // 北近畿豊岡自動車道（春日JCT→豊岡）
+    ['春日JCT','青垣IC',10], ['青垣IC','遠阪IC',11],
+    ['遠阪IC','和田山IC',10], ['和田山IC','養父IC',10],
+    ['養父IC','八鹿氷ノ山IC',9], ['八鹿氷ノ山IC','日高神鍋高原IC',9],
+    ['日高神鍋高原IC','但馬空港IC',7], ['但馬空港IC','豊岡IC',6],
+    // 神戸淡路鳴門自動車道（垂水JCT→南あわじ）
+    ['神戸JCT','垂水JCT',40],
+    ['垂水JCT','舞子IC',3], ['舞子IC','淡路IC',54],
+    ['淡路IC','東浦IC',4], ['東浦IC','津名一宮IC',8],
+    ['津名一宮IC','洲本IC',12], ['洲本IC','南あわじIC',11], ['南あわじIC','西淡三原IC',4],
+  ];
+
+  // グラフ構築
+  const hwGraph = {};
+  HW.forEach(([a, b, km]) => {
+    (hwGraph[a] = hwGraph[a] || {})[b] = km;
+    (hwGraph[b] = hwGraph[b] || {})[a] = km;
+  });
+
+  const ALL_ICS = [...new Set(HW.flatMap(([a, b]) => [a, b]))].sort((a, b) => a.localeCompare(b, 'ja'));
+
+  // ダイクストラ法
+  function dijkstra(start, end) {
+    const dist = Object.fromEntries(ALL_ICS.map(n => [n, Infinity]));
+    dist[start] = 0;
+    const visited = new Set();
+    const unvisited = new Set(ALL_ICS);
+    while (unvisited.size) {
+      let u = null;
+      for (const n of unvisited) if (!u || dist[n] < dist[u]) u = n;
+      if (dist[u] === Infinity || u === end) break;
+      unvisited.delete(u); visited.add(u);
+      for (const [v, w] of Object.entries(hwGraph[u] || {})) {
+        if (!visited.has(v) && dist[u] + w < dist[v]) dist[v] = dist[u] + w;
+      }
+    }
+    return dist[end] === Infinity ? null : dist[end];
+  }
+
+  // ETC中型車 目安料金（¥40/km + 基本¥200・¥100単位で切り上げ）
+  function estimateToll(km) {
+    if (!km) return 0;
+    return Math.ceil((km * 40 + 200) / 100) * 100;
+  }
+
+  // ICドロップダウン生成（出発デフォルト：神戸三田IC）
+  (function buildICSelects() {
+    const fromSel = document.getElementById('fromIC');
+    const toSel = document.getElementById('toIC');
+    ALL_ICS.forEach(ic => {
+      const o1 = new Option(ic, ic);
+      if (ic === '神戸三田IC') o1.selected = true;
+      fromSel.appendChild(o1);
+      toSel.appendChild(new Option(ic, ic));
+    });
+  })();
+
+  let currentRoute = null;
+
+  function calcToll() {
+    const from = document.getElementById('fromIC').value;
+    const to = document.getElementById('toIC').value;
+    const est = document.getElementById('toll-estimate');
+    if (!from || !to || from === to) { est.textContent = ''; return; }
+    const km = dijkstra(from, to);
+    if (km === null) { est.textContent = '⚠ ルートが見つかりません'; return; }
+    const toll = estimateToll(km);
+    document.getElementById('tollFee').value = toll;
+    est.textContent = `約${km}km → 目安 ¥${toll.toLocaleString()}（ETC中型車）`;
+    currentRoute = { label: `${from} → ${to}` };
+    calculate();
+  }
+
+  const serviceOptions = [
+    { name: 'バッテリー上がり（ジャンプスタート）', base: 12000 },
+    { name: 'タイヤ交換（スペアへ交換）', base: 12000 },
+    { name: 'ガス欠・燃料補給（燃料代別）', base: 8000 },
+    { name: '脱輪・スタック救出', base: 25000 },
+    { name: '故障車搬送（エンジン不動など）', base: 15000 },
+    { name: '事故搬送', base: 25000 },
+    { name: '高速道路対応（高速料金別）', base: 35000 },
+    { name: '冠水・水没車の引き上げ・搬送', base: 50000 },
+    { name: '車検切れ車両の搬送', base: 20000 },
+  ];
+
+  const sel = document.getElementById('serviceType');
+  sel.innerHTML = serviceOptions.map((s, i) =>
+    `<option value="${s.base}">${s.name}</option>`
+  ).join('');
+
+  sel.addEventListener('change', function() {
+    document.getElementById('baseFee').value = this.value;
+    calculate();
+  });
+
+  function fmt(n) { return '¥' + Math.round(n).toLocaleString(); }
+
+  function calculate() {
+    const base = Math.max(0, parseFloat(document.getElementById('baseFee').value) || 0);
+    const d1 = Math.max(0, parseFloat(document.getElementById('dist1').value) || 0);
+    const d2 = Math.max(0, parseFloat(document.getElementById('dist2').value) || 0);
+    const toll = Math.max(0, parseFloat(document.getElementById('tollFee').value) || 0);
+    const isNight = document.getElementById('nightCheck').checked;
+
+    const kaiso = d1 * 605;
+    const ken = d2 * 990;
+    const subtotal = base + kaiso + ken;
+    const nightAdd = isNight ? Math.round(subtotal * 0.3) : 0;
+    const total = subtotal + toll + nightAdd;
+
+    document.getElementById('r-base').textContent = fmt(base);
+    document.getElementById('r-d1').textContent = d1;
+    document.getElementById('r-kaiso').textContent = fmt(kaiso);
+    document.getElementById('r-d2').textContent = d2;
+    document.getElementById('r-ken').textContent = fmt(ken);
+    document.getElementById('r-night').textContent = fmt(nightAdd);
+    document.getElementById('r-night-row').style.display = isNight ? 'flex' : 'none';
+
+    const hasToll = toll > 0;
+    document.getElementById('r-toll-row').style.display = hasToll ? 'flex' : 'none';
+    document.getElementById('r-toll').textContent = fmt(toll);
+    const icLabel = currentRoute ? currentRoute.label : '-';
+    document.getElementById('r-ic').textContent = icLabel;
+
+    document.getElementById('r-total').textContent = fmt(total);
+  }
+
+  document.querySelectorAll('input[type=number]').forEach(el => {
+    el.addEventListener('input', () => { if (parseFloat(el.value) < 0) el.value = 0; });
+  });
+
+  calculate();
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+</script>
+</body>
+</html>
