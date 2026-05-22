@@ -187,6 +187,8 @@
     }
 
     .logo span { color: var(--yellow); }
+    .logo-icon { height: 72px; width: 72px; object-fit: contain; border-radius: 50%; vertical-align: middle; margin-right: 4px; }
+    @media (max-width: 768px) { .logo-icon { height: 44px; width: 44px; } }
 
     .header-tel {
       display: flex;
@@ -1169,7 +1171,7 @@
 
 <!-- HEADER -->
 <header>
-  <div class="logo">🦙 アルパカ<span>レッカー</span></div>
+  <div class="logo"><img src="logo-icon.png" alt="アルパカレッカー" class="logo-icon"> アルパカ<span>レッカー</span></div>
   <div class="header-tel">
     <a href="tel:" class="btn-tel">
       <span>📞</span>
