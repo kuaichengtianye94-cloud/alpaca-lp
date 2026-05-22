@@ -143,15 +143,15 @@
 
     html { scroll-behavior: smooth; }
     @media (max-width: 768px) { .pc-br { display: none; } }
+    .nowrap { white-space: nowrap; }
 
     body {
       font-family: 'Noto Sans JP', sans-serif;
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
-      word-break: keep-all;
-      overflow-wrap: break-word;
       line-break: strict;
+      overflow-wrap: break-word;
     }
 
     /* ===== HEADER ===== */
@@ -421,7 +421,6 @@
       font-weight: 900;
       margin-bottom: 40px;
       line-height: 1.4;
-      word-break: keep-all;
       overflow-wrap: break-word;
     }
 
@@ -447,7 +446,6 @@
       gap: 10px;
       font-size: 1rem;
       font-weight: 700;
-      word-break: keep-all;
       overflow-wrap: break-word;
     }
 
@@ -1184,8 +1182,8 @@
       🦙 アルパカレッカー🦙
     </h1>
     <p class="hero-sub">
-      バッテリー上がり・パンク・事故搬送・エンジン不動<br class="pc-br">
-      深夜・早朝・高速道路もアルパカレッカーにお任せください。
+      <span class="nowrap">バッテリー上がり</span>・<span class="nowrap">パンク</span>・<span class="nowrap">事故搬送</span>・<span class="nowrap">エンジン不動</span><br class="pc-br">
+      深夜・早朝・高速道路も<span class="nowrap">アルパカレッカー</span>に<span class="nowrap">お任せください。</span>
     </p>
     <div class="hero-stats">
       <div class="hero-stat">
@@ -1243,7 +1241,7 @@
 <div class="trust-bar">
   <div class="trust-bar-inner">
     <div class="trust-item"><span class="trust-badge">許可</span>有償運送許可取得済み（神兵輸第744号）</div>
-    <div class="trust-item"><span class="trust-badge">安心</span>電話で料金を事前にご案内・ご納得後に出動</div>
+    <div class="trust-item"><span class="trust-badge">安心</span><span class="nowrap">電話で料金を事前にご案内・</span><span class="nowrap">ご納得後に出動</span></div>
     <div class="trust-item"><span class="trust-badge">OK</span>車検切れ・JAF未加入・保険対象外も対応</div>
     <div class="trust-item"><span class="trust-badge">24h</span>深夜・早朝も年中無休で対応</div>
   </div>
@@ -1253,7 +1251,7 @@
 <section class="trouble">
   <div class="container">
     <div class="section-label">TROUBLE</div>
-    <h2 class="section-title">こんなお困りごと、ありませんか？</h2>
+    <h2 class="section-title"><span class="nowrap">こんなお困りごと、</span><span class="nowrap">ありませんか？</span></h2>
     <div class="trouble-grid">
       <div class="trouble-card">
         <div class="trouble-icon">🔋</div>
