@@ -142,12 +142,16 @@
     }
 
     html { scroll-behavior: smooth; }
+    @media (max-width: 768px) { .pc-br { display: none; } }
 
     body {
       font-family: 'Noto Sans JP', sans-serif;
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-break: strict;
     }
 
     /* ===== HEADER ===== */
@@ -417,6 +421,8 @@
       font-weight: 900;
       margin-bottom: 40px;
       line-height: 1.4;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     /* ===== TRUST BAR ===== */
@@ -441,6 +447,8 @@
       gap: 10px;
       font-size: 1rem;
       font-weight: 700;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .trust-item .trust-badge {
@@ -1171,12 +1179,12 @@
   <div class="container">
     <div class="hero-badge">📍 兵庫県全域対応</div>
     <h1>
-      困ったその瞬間、<br>
-      最短20分で駆けつける<br>
+      困ったその瞬間、<br class="pc-br">
+      最短20分で駆けつける<br class="pc-br">
       🦙 アルパカレッカー🦙
     </h1>
     <p class="hero-sub">
-      バッテリー上がり・パンク・事故搬送・エンジン不動<br>
+      バッテリー上がり・パンク・事故搬送・エンジン不動<br class="pc-br">
       深夜・早朝・高速道路もアルパカレッカーにお任せください。
     </p>
     <div class="hero-stats">
