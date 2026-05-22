@@ -170,8 +170,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       box-shadow: 0 2px 12px rgba(0,0,0,0.3);
       overflow: hidden;
@@ -270,7 +272,7 @@
     .hero {
       background: var(--navy);
       color: var(--white);
-      padding: 80px 20px 60px;
+      padding: 180px 20px 60px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -505,6 +507,7 @@
       font-weight: 900;
       font-size: 1.2rem;
       line-height: 1.8;
+      word-break: keep-all;
     }
 
     /* ===== SERVICES ===== */
@@ -543,6 +546,7 @@
       font-weight: 700;
       margin-bottom: 10px;
       color: var(--navy);
+      word-break: keep-all;
     }
 
     .service-card p {
@@ -1044,7 +1048,7 @@
 
     @media (max-width: 600px) {
       section { padding: 50px 16px; }
-      .hero { padding: 50px 16px 40px; }
+      .hero { padding: 114px 16px 40px; }
       .hero-badge { font-size: clamp(1.2rem, 5vw, 1.8rem); padding: 10px 0; }
       .hero-stats { gap: 0; }
       .btn-call {
@@ -1186,7 +1190,7 @@
     <div class="hero-badge">📍 兵庫県全域対応</div>
     <h1>
       困ったその瞬間、<br class="pc-br">
-      最短20分で駆けつける<br class="pc-br">
+      <span style="color:var(--red);">最短20分</span>で駆けつける<br class="pc-br">
       🦙 アルパカレッカー🦙
     </h1>
     <p class="hero-sub">
