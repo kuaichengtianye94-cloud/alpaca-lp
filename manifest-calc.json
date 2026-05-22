@@ -1,0 +1,20 @@
+{
+  "name": "料金計算シート｜アルパカレッカー",
+  "short_name": "料金計算",
+  "description": "案件受付時の料金目安計算ツール",
+  "start_url": "/alpaca-lp/fee-calculator.html",
+  "scope": "/alpaca-lp/fee-calculator.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E8222A",
+  "theme_color": "#E8222A",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-calc.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

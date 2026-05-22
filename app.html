@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>アルパカレッカー 業務ツール</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="レッカー業務">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="theme-color" content="#0D1B3E">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+      background: #0D1B3E;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: max(40px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+      gap: 20px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .logo .icon { font-size: 64px; display: block; margin-bottom: 8px; }
+    .logo h1 { font-size: 22px; font-weight: 900; color: #fff; }
+    .logo h1 span { color: #FFD700; }
+    .logo .permit { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 360px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 24px;
+      text-decoration: none;
+      color: #0D1B3E;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.1s, opacity 0.1s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:active { transform: scale(0.97); opacity: 0.9; }
+
+    .btn .btn-icon { font-size: 36px; flex-shrink: 0; }
+    .btn .btn-text { flex: 1; }
+    .btn .btn-title { font-size: 17px; font-weight: 900; display: block; }
+    .btn .btn-sub { font-size: 12px; color: #666; margin-top: 3px; display: block; }
+    .btn .btn-arrow { font-size: 18px; color: #ccc; flex-shrink: 0; }
+
+    .btn.primary { background: #E8222A; color: #fff; }
+    .btn.primary .btn-sub { color: rgba(255,255,255,0.7); }
+    .btn.primary .btn-arrow { color: rgba(255,255,255,0.5); }
+
+    .tel-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 16px 24px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+    .tel-btn:active { opacity: 0.7; }
+    .tel-btn .tel-label { font-size: 11px; color: rgba(255,255,255,0.5); display: block; font-weight: 400; letter-spacing: 0; margin-bottom: 2px; }
+  </style>
+</head>
+<body>
+
+  <div class="logo">
+    <span class="icon">🦙</span>
+    <h1>アルパカ<span>レッカー</span></h1>
+    <div class="permit">有償運送許可：神兵輸第744号</div>
+  </div>
+
+  <a href="fee-calculator.html" class="btn primary">
+    <span class="btn-icon">🧮</span>
+    <span class="btn-text">
+      <span class="btn-title">料金計算シート</span>
+      <span class="btn-sub">案件受付時の料金目安を計算</span>
+    </span>
+    <span class="btn-arrow">›</span>
+  </a>
+
+  <a href="tel-manual.html" class="btn">
+    <span class="btn-icon">📞</span>
+    <span class="btn-text">
+      <span class="btn-title">電話対応マニュアル</span>
+      <span class="btn-sub">トラブル別対応・保険・NG対応</span>
+    </span>
+    <span class="btn-arrow">›</span>
+  </a>
+
+  <a href="tel:0120966821" class="tel-btn">
+    <span style="display:flex; flex-direction:column; align-items:center;">
+      <span class="tel-label">緊急発信</span>
+      📞 
+    </span>
+  </a>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/alpaca-lp/sw.js');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "電話対応マニュアル｜アルパカレッカー",
+  "short_name": "電話マニュアル",
+  "description": "トラブル別対応・保険・NG対応マニュアル",
+  "start_url": "/alpaca-lp/tel-manual.html",
+  "scope": "/alpaca-lp/tel-manual.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D1B3E",
+  "theme_color": "#0D1B3E",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-manual.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

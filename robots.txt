@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://startling-biscochitos-4e3f77.netlify.app/sitemap.xml

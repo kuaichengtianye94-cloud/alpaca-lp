@@ -1,0 +1,20 @@
+{
+  "name": "アルパカレッカー 業務ツール",
+  "short_name": "レッカー業務",
+  "description": "料金計算・電話対応マニュアル",
+  "start_url": "/alpaca-lp/app.html",
+  "scope": "/alpaca-lp/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D1B3E",
+  "theme_color": "#0D1B3E",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
