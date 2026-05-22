@@ -935,6 +935,25 @@
 
     .btn-line:hover { opacity: 0.85; }
 
+    .btn-line-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #06C755;
+      color: var(--yellow);
+      text-decoration: none;
+      padding: 18px 44px;
+      border-radius: 50px;
+      font-size: 1.5rem;
+      font-weight: 900;
+      transition: opacity .2s;
+      box-shadow: 0 8px 24px rgba(6,199,85,.35);
+    }
+    .btn-line-hero:hover { opacity: 0.85; }
+    @media (max-width: 600px) {
+      .btn-line-hero { padding: 14px 28px; font-size: 1.15rem; }
+    }
+
     /* ===== AREA LINKS ===== */
     .area-links {
       background: #f5f7fa;
@@ -1010,7 +1029,14 @@
     }
 
     @media (max-width: 600px) {
-      .hero-stats { gap: 24px; }
+      section { padding: 50px 16px; }
+      .hero { padding: 50px 16px 40px; }
+      .hero-badge { font-size: clamp(1.2rem, 5vw, 1.8rem); padding: 10px 0; }
+      .hero-stats { gap: 0; }
+      .btn-call {
+        padding: 14px 28px;
+        font-size: 1.15rem;
+      }
     }
 
     /* ========== PREMIUM ADDITIONS ========== */
@@ -1102,6 +1128,10 @@
     /* FAQ accordion */
     .faq-a { max-height: 0; overflow: hidden; padding: 0 24px 0 64px; transition: max-height .42s cubic-bezier(0.4,0,0.2,1); }
     .faq-item.open .faq-a { max-height: 300px; padding-bottom: 18px; }
+    @media (max-width: 600px) {
+      .faq-a { padding: 0 16px 0 44px; }
+      .faq-item.open .faq-a { padding-bottom: 14px; }
+    }
     .faq-q { justify-content: space-between; transition: background .2s; border-radius: 12px; }
     .faq-q:hover { background: #f8f8ff; }
     .faq-tog { color: var(--red); font-size: 1.6rem; font-weight: 900; line-height: 1; transition: transform .35s cubic-bezier(0.4,0,0.2,1); flex-shrink: 0; user-select: none; margin-left: 8px; }
@@ -1170,8 +1200,7 @@
     <div class="hero-cta">
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
         <a href="tel:" class="btn-call">📞 今すぐ電話する</a>
-        <a href="https://line.me/R/ti/p/@038fhykf" target="_blank" rel="noopener"
-          style="display:inline-flex;align-items:center;gap:10px;background:#06C755;color:var(--yellow);text-decoration:none;padding:18px 44px;border-radius:50px;font-size:1.5rem;font-weight:900;transition:opacity .2s;box-shadow:0 8px 24px rgba(6,199,85,.35);">
+        <a href="https://line.me/R/ti/p/@038fhykf" target="_blank" rel="noopener" class="btn-line-hero">
           💬 LINEで相談する
         </a>
       </div>
