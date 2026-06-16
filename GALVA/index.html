@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GALVA｜門真・大和田のダイニングバー</title>
+<meta name="description" content="居酒屋とBARのハーフ。門真・大和田駅徒歩5分の隠れ家ダイニングバーGALVA。BBQ串やちょい飲みセットをリーズナブルに。記念日サプライズも対応。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --gold:#c9a14a; --gold-bright:#e7c878; --rust:#9c5a2c;
+    --ink:#0a0806; --ink2:#14110d; --cream:#f4efe6;
+  }
+  html{ scroll-behavior:smooth; scroll-padding-top:64px; }
+  html,body{ height:100%; }
+  body{
+    font-family:'Noto Sans JP',sans-serif; background:var(--ink); color:var(--cream);
+    overflow-x:hidden; line-height:1.8;
+  }
+  .serif{ font-family:'Cormorant Garamond',serif; }
+  body::before{ content:""; position:fixed; inset:0; z-index:-2; background:url("door-wood.jpg") center/cover; filter:brightness(1.15) contrast(1.05); }
+  body::after{ content:""; position:fixed; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(8,6,5,0.42), rgba(6,5,4,0.52)); }
+
+  /* ============ 扉オープニング（6:4 片開き） ============ */
+  .gate{
+    position:fixed; inset:0; z-index:100; background:#000; cursor:pointer;
+    perspective:2400px; perspective-origin:50% 50%;
+    transition:transform 1.1s ease, opacity 1.1s ease; transform-origin:34% 50%;
+  }
+  .gate::after{ content:""; position:absolute; inset:0; z-index:0;
+    background:linear-gradient(rgba(8,5,3,0.58), rgba(10,6,3,0.72)), url("img/drink-shelf.jpg") center/cover; }
+  .gate.enter{ transform:scale(1.8); opacity:0; }
+  .door{
+    position:absolute; top:0; height:100%; backface-visibility:hidden;
+    background:
+      linear-gradient(115deg, rgba(0,0,0,0.5), rgba(0,0,0,0.2) 42%, rgba(0,0,0,0.65)),
+      repeating-linear-gradient(90deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 6px, rgba(255,255,255,0.012) 7px, rgba(0,0,0,0.4) 9px, rgba(0,0,0,0) 12px),
+      url("door-wood.jpg") center/cover,
+      linear-gradient(180deg,#15110d,#0a0806 48%,#120e0a);
+    box-shadow: inset 0 0 150px rgba(0,0,0,0.9);
+  }
+  .door-main{
+    left:0; width:60%; transform-origin:left center; z-index:2;
+    transition: transform 1.6s cubic-bezier(0.62,0,0.2,1), box-shadow 1.6s ease;
+    will-change:transform;
+  }
+  .door-side{ right:0; width:40%; z-index:1; }
+  .door::before{
+    content:""; position:absolute; inset:28px;
+    border:1px solid rgba(201,161,74,0.22); border-radius:2px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.6), inset 0 0 70px rgba(0,0,0,0.75);
+    pointer-events:none;
+  }
+  .door::after{
+    content:""; position:absolute; inset:70px; border-radius:2px;
+    box-shadow: inset 0 0 0 1px rgba(201,161,74,0.08), inset 4px 4px 16px rgba(0,0,0,0.8);
+    pointer-events:none;
+  }
+  /* シックな縦長ハンドル（アンティークブラス） */
+  .handle{
+    position:absolute; top:50%; right:42px; width:6px; height:172px; margin-top:-86px; z-index:5;
+    background:linear-gradient(90deg,#332d1f,#74663f 28%,#bfa968 50%,#6e6038 72%,#2a2417);
+    border-radius:4px;
+    box-shadow:0 3px 16px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(0,0,0,0.4);
+  }
+  .handle::before,.handle::after{
+    content:""; position:absolute; left:-3px; right:-3px; height:8px;
+    background:linear-gradient(90deg,#272114,#8d7d4e 50%,#272114); border-radius:2px;
+    box-shadow:0 1px 5px rgba(0,0,0,0.5);
+  }
+  .handle::before{ top:-11px; } .handle::after{ bottom:-11px; }
+  .gate-seam{
+    position:absolute; top:0; left:60%; width:2px; height:100%; margin-left:-1px;
+    background:linear-gradient(180deg,transparent,rgba(201,161,74,0.18) 18%,rgba(0,0,0,0.55) 50%,rgba(201,161,74,0.18) 82%,transparent);
+    z-index:3;
+  }
+  .gate-logo{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    z-index:4; text-align:center; transition:opacity 0.5s ease;
+  }
+  .gate-logo .mark{
+    font-family:'Cormorant Garamond',serif; font-size:clamp(48px,12vw,130px);
+    letter-spacing:0.22em; font-weight:500; color:#fff;
+    text-shadow:0 0 34px rgba(255,255,255,0.45), 0 2px 10px rgba(0,0,0,0.7); padding-left:0.22em;
+  }
+  .gate-logo .sub{ margin-top:12px; font-size:clamp(9px,1.4vw,13px); letter-spacing:0.5em; color:rgba(244,239,230,0.7); padding-left:0.5em; }
+  .gate-logo .tap{ margin-top:38px; font-size:11px; letter-spacing:0.3em; color:rgba(231,200,120,0.85); animation:pulse 2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:.4} 50%{opacity:1} }
+
+  .gate.opening .door-main{
+    transform:rotateY(-120deg);
+    box-shadow: inset 0 0 150px rgba(0,0,0,0.9), 60px 0 120px rgba(0,0,0,0.6);
+  }
+  .gate.opening .gate-logo{ opacity:0; }
+  .gate.gone{ opacity:0; transition:opacity 0.9s ease; pointer-events:none; }
+  body.locked{ overflow:hidden; }
+
+  /* ============ 本編：JSこけても見える堅牢設計 ============ */
+  .site{ opacity:1; }
+  body.js .site{ opacity:0; transform:scale(0.92); transition:opacity 1.2s ease, transform 1.6s ease; }
+  body.js .site.show{ opacity:1; transform:scale(1); }
+
+  .wrap{ width:90%; max-width:1080px; margin:0 auto; }
+  .eyebrow{ display:inline-block; font-size:12px; letter-spacing:0.4em; color:var(--gold); border-bottom:1px solid rgba(201,161,74,0.4); padding:0 4px 8px; margin-bottom:24px; }
+  .sec-title{ font-size:clamp(26px,4.5vw,42px); font-weight:700; letter-spacing:0.08em; }
+  .sec-title .serif{ color:var(--gold); }
+  .btn{ display:inline-flex; align-items:center; gap:10px; padding:16px 34px; font-weight:700; letter-spacing:0.08em; border-radius:2px; text-decoration:none; transition:transform .2s ease; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-ig{ background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888); color:#fff; box-shadow:0 8px 24px rgba(220,39,67,0.28); }
+  .btn-ghost{ border:1px solid rgba(201,161,74,0.5); color:var(--gold); }
+
+  .rivet-bar{
+    height:14px;
+    background:
+      radial-gradient(circle at 16px 50%, #6a6a6e 2px, #2a2a2d 3px, transparent 4px),
+      radial-gradient(circle at calc(100% - 16px) 50%, #6a6a6e 2px, #2a2a2d 3px, transparent 4px),
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.13) 0 1px, transparent 1px 3px, rgba(0,0,0,0.5) 4px 5px, transparent 5px 9px),
+      linear-gradient(180deg,#3e392e,#282318 55%,#171511);
+    border-top:1px solid rgba(255,255,255,0.1); border-bottom:1px solid rgba(0,0,0,0.65);
+  }
+
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:80px 20px; position:relative;
+    background:
+      radial-gradient(ellipse at 50% 18%, rgba(201,161,74,0.14), transparent 55%),
+      linear-gradient(180deg, rgba(11,10,9,0.1), rgba(0,0,0,0.32));
+  }
+  .hero .logo{ font-family:'Cormorant Garamond',serif; font-size:clamp(60px,15vw,168px); letter-spacing:0.2em; color:var(--gold); padding-left:0.2em; line-height:1; text-shadow:0 0 50px rgba(201,161,74,0.25); }
+  .hero .catch{ margin-top:24px; font-size:clamp(15px,2.6vw,24px); font-weight:500; letter-spacing:0.12em; }
+  .hero .catch b{ color:var(--gold-bright); }
+  .hero .sub{ margin-top:14px; font-size:clamp(11px,1.8vw,14px); letter-spacing:0.3em; color:rgba(244,239,230,0.6); }
+  .hero-cta{ margin-top:44px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  .hero .scroll{ position:absolute; bottom:28px; left:50%; transform:translateX(-50%); font-size:10px; letter-spacing:0.3em; color:rgba(244,239,230,0.45); }
+  .hero .scroll::after{ content:""; display:block; width:1px; height:38px; margin:10px auto 0; background:linear-gradient(180deg,var(--gold),transparent); }
+
+  section.block{ padding:90px 0; }
+  .concept{ background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.08) 0 1px, rgba(255,255,255,0.02) 1px 2px, transparent 2px 8px, rgba(0,0,0,0.4) 9px 10px, transparent 10px 18px),
+      linear-gradient(180deg, rgba(21,22,25,0.68), rgba(14,14,16,0.56));
+    text-align:center; }
+  .concept .lead{ margin:28px auto 0; max-width:680px; font-size:clamp(14px,2vw,17px); color:rgba(244,239,230,0.85); }
+  .concept .pillars{ margin-top:54px; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .pillar{ border:1px solid rgba(201,161,74,0.18); border-radius:3px; padding:34px 20px; background:rgba(10,8,6,0.42); }
+  .pillar .ico{ color:var(--gold-bright); line-height:0; }
+  .pillar .ico svg{ width:38px; height:38px; }
+  .pillar h3{ margin-top:14px; font-size:17px; letter-spacing:0.06em; color:var(--gold-bright); }
+  .pillar p{ margin-top:10px; font-size:13px; color:rgba(244,239,230,0.7); line-height:1.7; }
+
+  .menu{ background:linear-gradient(180deg, rgba(13,11,8,0.12), rgba(0,0,0,0.32)); }
+  .menu .head{ text-align:center; margin-bottom:50px; }
+  .menu-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:26px; }
+  .dish{ border:1px solid rgba(201,161,74,0.16); border-radius:3px; overflow:hidden; background:rgba(10,8,6,0.42); display:flex; flex-direction:column; }
+  .dish .ph{ aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 10px, transparent 10px 20px), linear-gradient(135deg,#241c12,#15110b);
+    color:rgba(244,239,230,0.3); font-size:12px; letter-spacing:0.2em; }
+  .dish .ph img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .dish .tag{ position:absolute; top:12px; left:12px; z-index:2; background:var(--rust); color:#fff; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:4px 10px; border-radius:2px; }
+  .dish .body{ padding:20px 22px; }
+  .dish h3{ font-size:18px; letter-spacing:0.04em; }
+  .dish .price{ color:var(--gold-bright); font-weight:700; margin-left:8px; font-size:15px; }
+  .dish p{ margin-top:8px; font-size:13px; color:rgba(244,239,230,0.65); }
+  .menu-note{ text-align:center; margin-top:34px; font-size:12px; color:rgba(244,239,230,0.5); letter-spacing:0.08em; }
+
+  .set{ background:linear-gradient(135deg, rgba(40,28,12,0.32), rgba(10,8,6,0.4)); border-top:1px solid rgba(201,161,74,0.15); border-bottom:1px solid rgba(201,161,74,0.15); text-align:center; }
+  .set .price-big{ font-family:'Cormorant Garamond',serif; font-size:clamp(44px,9vw,86px); color:var(--gold-bright); font-weight:700; line-height:1; }
+  .set .price-big small{ font-size:0.32em; color:var(--cream); font-weight:500; letter-spacing:0.1em; }
+  .set .desc{ margin-top:18px; font-size:clamp(14px,2.2vw,18px); }
+  .set .desc b{ color:var(--gold-bright); }
+  .set .cond{ margin-top:10px; font-size:12px; color:rgba(244,239,230,0.55); letter-spacing:0.1em; }
+
+  .info{ background:linear-gradient(180deg, rgba(0,0,0,0.32), rgba(13,11,8,0.12)); }
+  .info-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+  .info dl{ display:grid; grid-template-columns:auto 1fr; gap:14px 22px; }
+  .info dt{ color:var(--gold); font-size:13px; letter-spacing:0.1em; white-space:nowrap; border-left:2px solid rgba(201,161,74,0.5); padding-left:12px; }
+  .info dd{ font-size:14px; color:rgba(244,239,230,0.88); }
+  .map-frame{ border:1px solid rgba(201,161,74,0.2); border-radius:3px; overflow:hidden; aspect-ratio:4/3; }
+  .map-frame iframe{ width:100%; height:100%; border:0; filter:grayscale(0.3) contrast(1.05) brightness(0.85); }
+
+  .final{ text-align:center; background:radial-gradient(ellipse at 50% 0%, rgba(201,161,74,0.16), transparent 60%), rgba(0,0,0,0.3); padding:96px 0; }
+  .final .logo{ font-family:'Cormorant Garamond',serif; font-size:clamp(40px,9vw,90px); letter-spacing:0.2em; color:var(--gold); padding-left:0.2em; }
+  .final p{ margin-top:18px; color:rgba(244,239,230,0.8); }
+  .final-cta{ margin-top:38px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+  footer{ text-align:center; padding:30px 0 40px; font-size:11px; letter-spacing:0.1em; color:rgba(244,239,230,0.4); background:rgba(0,0,0,0.4); }
+
+  .floatbar{ position:fixed; bottom:0; left:0; right:0; z-index:60; display:none; }
+  .floatbar a{ flex:1; text-align:center; padding:15px 0; font-weight:700; font-size:14px; letter-spacing:0.06em; text-decoration:none; }
+  .floatbar .ig{ background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888); color:#fff; }
+  .floatbar .ghost{ background:#1a1814; color:var(--gold); border-top:1px solid rgba(201,161,74,0.3); }
+
+  .reveal{ opacity:1; transform:none; }
+  body.js .reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .8s ease; }
+  body.js .reveal.in{ opacity:1; transform:none; }
+
+  .interior{ background:linear-gradient(180deg, rgba(0,0,0,0.3), rgba(13,11,8,0.12)); }
+  .drinkmenu{ background:linear-gradient(180deg, rgba(13,11,8,0.12), rgba(0,0,0,0.32)); }
+  .anniv{ background:linear-gradient(180deg, rgba(0,0,0,0.32), rgba(13,11,8,0.12)); }
+  .photo-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+  .photo{ border:1px solid rgba(201,161,74,0.16); border-radius:3px; overflow:hidden; aspect-ratio:4/3; }
+  .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .menu-sheets{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .menu-sheets img{ width:100%; border-radius:3px; border:1px solid rgba(201,161,74,0.18); background:#f4efe6; display:block; }
+  .hours-img{ width:100%; border-radius:3px; border:1px solid rgba(201,161,74,0.2); display:block; }
+
+  /* ============ ヘッダー ============ */
+  .site-header{ position:fixed; top:0; left:0; right:0; z-index:70;
+    background:rgba(8,6,5,0.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,161,74,0.22); }
+  .hd-inner{ width:90%; max-width:1080px; margin:0 auto; height:60px; display:flex; align-items:center; justify-content:space-between; }
+  .hd-logo{ font-family:'Cormorant Garamond',serif; font-size:26px; letter-spacing:0.18em; color:var(--gold); text-decoration:none; padding-left:0.18em; line-height:1; }
+  .hd-nav{ display:flex; align-items:center; gap:24px; }
+  .hd-nav a{ color:rgba(244,239,230,0.85); text-decoration:none; font-size:13px; letter-spacing:0.08em; transition:color .2s ease; white-space:nowrap; }
+  .hd-nav a:hover{ color:var(--gold-bright); }
+  .hd-cta{ background:linear-gradient(45deg,#f09433,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888); color:#fff !important; padding:9px 18px; border-radius:2px; font-weight:700; }
+  .hd-burger{ display:none; background:none; border:0; cursor:pointer; width:30px; height:22px; position:relative; }
+  .hd-burger span{ display:block; position:absolute; left:0; right:0; height:2px; background:var(--gold); border-radius:2px; transition:.3s ease; }
+  .hd-burger span:nth-child(1){ top:0; } .hd-burger span:nth-child(2){ top:10px; } .hd-burger span:nth-child(3){ top:20px; }
+  .hd-burger.open span:nth-child(1){ top:10px; transform:rotate(45deg); }
+  .hd-burger.open span:nth-child(2){ opacity:0; }
+  .hd-burger.open span:nth-child(3){ top:10px; transform:rotate(-45deg); }
+
+  @media (max-width:860px){
+    .hd-burger{ display:block; }
+    .hd-nav{ position:fixed; top:60px; left:0; right:0; flex-direction:column; align-items:stretch; gap:0;
+      background:rgba(8,6,5,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(201,161,74,0.22);
+      transform:translateY(-140%); transition:transform .35s ease; padding:6px 0 14px; }
+    .hd-nav.open{ transform:translateY(0); }
+    .hd-nav a{ padding:15px 26px; border-top:1px solid rgba(255,255,255,0.05); font-size:15px; }
+    .hd-cta{ margin:12px 26px 0; text-align:center; border-radius:2px; }
+  }
+
+  @media (max-width:720px){
+    .concept .pillars{ grid-template-columns:1fr; }
+    .menu-grid{ grid-template-columns:1fr; }
+    .info-grid{ grid-template-columns:1fr; }
+    .photo-grid{ grid-template-columns:1fr; }
+    .menu-sheets{ grid-template-columns:1fr; }
+    .floatbar{ display:flex; }
+    body{ padding-bottom:52px; }
+  }
+</style>
+</head>
+<body class="locked">
+
+  <div class="gate" id="gate">
+    <div class="door door-side"></div>
+    <div class="door door-main"><span class="handle"></span></div>
+    <div class="gate-seam"></div>
+    <div class="gate-logo">
+      <div class="mark">GALVA</div>
+      <div class="sub">DINING BAR ・ KADOMA</div>
+      <div class="tap">TAP TO ENTER</div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="hd-inner">
+      <a href="#top" class="hd-logo">GALVA</a>
+      <nav class="hd-nav" id="hdNav">
+        <a href="#menu">料理</a>
+        <a href="#drink">ドリンク</a>
+        <a href="#interior">店内</a>
+        <a href="#anniv">記念日</a>
+        <a href="#info">アクセス</a>
+        <a class="hd-cta" href="https://www.instagram.com/diningbar_galva/" target="_blank" rel="noopener">Instagramで予約</a>
+      </nav>
+      <button class="hd-burger" id="hdBurger" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main class="site" id="site">
+
+    <section class="hero" id="top">
+      <div class="logo">GALVA</div>
+      <div class="catch">無骨な扉の奥に、<b>上質な一杯。</b></div>
+      <div class="sub">門真・大和田駅 徒歩5分／隠れ家ダイニングバー</div>
+      <div class="hero-cta">
+        <a class="btn btn-ig" href="https://www.instagram.com/diningbar_galva/" target="_blank" rel="noopener">Instagramで予約</a>
+        <a class="btn btn-ghost" href="#info">アクセス・営業時間</a>
+      </div>
+      <div class="scroll">SCROLL</div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block concept" id="concept">
+      <div class="wrap reveal">
+        <span class="eyebrow">CONCEPT</span>
+        <h2 class="sec-title">リッチな隠れ家を、<br><span class="serif">Reasonable</span> に。</h2>
+        <p class="lead">アルミの外壁にドラム缶。<br>扉を開けると、無骨やのにどこか落ち着く大人の空間。<br>居酒屋みたいに気軽に、BARみたいにじっくり。<br>ひとりでも、仲間とでも、気取らず楽しめる門真の隠れ家です。</p>
+        <div class="pillars">
+          <div class="pillar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg></div><h3>居酒屋級の料理</h3><p>名物BBQ串をはじめ、つい頼みたくなる一品が勢ぞろい。</p></div>
+          <div class="pillar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 11v11"/><path d="m19 3-7 8-7-8Z"/></svg></div><h3>BAR級のお酒</h3><p>こだわりのドリンクを、リーズナブルな価格でゆっくりと。</p></div>
+          <div class="pillar"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><path d="M7 4h.01"/><path d="M12 4h.01"/><path d="M17 4h.01"/></svg></div><h3>記念日サプライズ</h3><p>誕生日・記念日の演出も対応（要予約）。大切な日にどうぞ。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block interior" id="interior">
+      <div class="wrap">
+        <div class="head reveal" style="text-align:center; margin-bottom:46px;">
+          <span class="eyebrow">INTERIOR</span>
+          <h2 class="sec-title">無骨で、どこか<span class="serif">Cozy</span>。</h2>
+        </div>
+        <div class="photo-grid reveal">
+          <div class="photo"><img src="img/seats.jpg" alt="ゆったり寛げるテーブル席" loading="lazy"></div>
+          <div class="photo"><img src="img/drink-shelf.jpg" alt="ずらりと並ぶボトルキープ" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block menu" id="menu">
+      <div class="wrap">
+        <div class="head reveal">
+          <span class="eyebrow">MENU</span>
+          <h2 class="sec-title">名物と、<span class="serif">Favorites</span>。</h2>
+        </div>
+        <div class="menu-grid">
+          <div class="dish reveal">
+            <div class="ph"><span class="tag">人気No.1</span><img src="img/dish-bbq.jpg" alt="名物BBQ串" loading="lazy"></div>
+            <div class="body"><h3>名物 BBQ串</h3><p>お肉も魚介も野菜も。香ばしく焼き上げる、GALVAといえばまずコレの看板メニュー。</p></div>
+          </div>
+          <div class="dish reveal">
+            <div class="ph"><span class="tag">名物</span><img src="img/dish-motsu.jpg" alt="名物ちりとり鍋" loading="lazy"></div>
+            <div class="body"><h3>名物 ちりとり鍋</h3><p>ぷりぷりのホルモンと豚バラ、ニラを山盛りで。ちりとり鍋で豪快に、スタミナ満点の一皿。</p></div>
+          </div>
+          <div class="dish reveal">
+            <div class="ph"><img src="img/dish-gyutan.jpg" alt="ハツの炙り・湯引き" loading="lazy"></div>
+            <div class="body"><h3>ハツの炙り・湯引き</h3><p>新鮮なハツをレアに炙って湯引きで。コリッとした食感が、お酒によう合う。</p></div>
+          </div>
+          <div class="dish reveal">
+            <div class="ph"><img src="img/dish-katsuo.jpg" alt="藁焼きカツオのたたき" loading="lazy"></div>
+            <div class="body"><h3>藁焼きカツオのたたき</h3><p>藁の香り立つ一皿。薬味たっぷりで、日本酒との相性も抜群。</p></div>
+          </div>
+          <div class="dish reveal">
+            <div class="ph"><img src="img/dish-tai.jpg" alt="鯛のあら炊き" loading="lazy"></div>
+            <div class="body"><h3>鯛のあら炊き</h3><p>じっくり炊いた、旨みたっぷりの一品。冷えたビールのアテにどうぞ。</p></div>
+          </div>
+          <div class="dish reveal">
+            <div class="ph"><img src="img/drink-corona.jpg" alt="世界のボトルビール" loading="lazy"></div>
+            <div class="body"><h3>世界のボトルビール</h3><p>コロナ・ハイネケンなど、よう冷えたボトルビールをバケツで豪快に。</p></div>
+          </div>
+        </div>
+        <p class="menu-note">※ フードメニューは日によって変わります。その日のおすすめは、お気軽にスタッフまで。</p>
+      </div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block drinkmenu" id="drink">
+      <div class="wrap">
+        <div class="head reveal" style="text-align:center; margin-bottom:46px;">
+          <span class="eyebrow">DRINK MENU</span>
+          <h2 class="sec-title">豊富な、<span class="serif">Drinks</span>。</h2>
+          <p class="menu-note" style="margin-top:18px;">ビール・サワーから本格ウイスキー・カクテルまで。ちょい飲みも、じっくりも。</p>
+        </div>
+        <div class="menu-sheets reveal">
+          <img src="img/menu-drink1.jpg" alt="ドリンクメニュー アルコール・焼酎" loading="lazy">
+          <img src="img/menu-drink2.jpg" alt="ドリンクメニュー 梅酒・ソフトドリンク" loading="lazy">
+          <img src="img/menu-whisky1.jpg" alt="ウイスキーメニュー スコッチ・アメリカン" loading="lazy">
+          <img src="img/menu-whisky2.jpg" alt="ウイスキーメニュー ジャパニーズ・アイリッシュ" loading="lazy">
+          <img src="img/menu-cocktail1.jpg" alt="カクテルメニュー ジン・ラムほか" loading="lazy">
+          <img src="img/menu-cocktail2.jpg" alt="カクテルメニュー カシス・ピーチほか" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="block set">
+      <div class="wrap reveal">
+        <span class="eyebrow">CHOInomi SET</span>
+        <div class="price-big">¥1,000<small>（税込）</small></div>
+        <div class="desc">ちょい飲みセット ＝ <b>ドリンク2杯</b> ＋ <b>おつまみ2品</b></div>
+        <div class="cond">20:00までの入店限定／仕事帰りの一杯にちょうどええやつ</div>
+      </div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block anniv" id="anniv">
+      <div class="wrap reveal" style="text-align:center;">
+        <span class="eyebrow">ANNIVERSARY</span>
+        <h2 class="sec-title">特別な日を、<span class="serif">Special</span> に。</h2>
+        <p class="lead" style="margin:24px auto 40px; max-width:640px; color:rgba(244,239,230,0.85);">誕生日・記念日にはサプライズの演出を。ホールケーキやお花のご用意も承ります（要予約）。大切な人との時間を、GALVAでお手伝いします。</p>
+        <div class="photo-grid">
+          <div class="photo"><img src="img/anniv-cake.jpg" alt="記念日のホールケーキ" loading="lazy"></div>
+          <div class="photo"><img src="img/anniv-flower.jpg" alt="記念日のお花の演出" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rivet-bar"></div>
+
+    <section class="block info" id="info">
+      <div class="wrap">
+        <div class="head reveal" style="text-align:center; margin-bottom:46px;">
+          <span class="eyebrow">INFORMATION</span>
+          <h2 class="sec-title">店舗情報・<span class="serif">Access</span></h2>
+        </div>
+        <div class="reveal" style="margin-bottom:40px;">
+          <img class="hours-img" src="img/hours.jpg" alt="GALVA 営業時間 ランチ11:30〜14:00／ディナー18:00〜23:00" loading="lazy">
+        </div>
+        <div class="info-grid reveal">
+          <dl>
+            <dt>店名</dt><dd>Dining bar GALVA（ガルバ）</dd>
+            <dt>住所</dt><dd>大阪府門真市野里町3-17</dd>
+            <dt>アクセス</dt><dd>京阪電車・大和田駅から徒歩5分</dd>
+            <dt>営業時間</dt><dd>18:00 〜 23:00<br>（ランチは2日前までのInstagram DM予約限定）</dd>
+            <dt>定休日</dt><dd>月曜日</dd>
+            <dt>ご予約</dt><dd>Instagram DMにて承ります</dd>
+          </dl>
+          <div class="map-frame">
+            <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              src="https://maps.google.com/maps?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E9%96%80%E7%9C%9F%E5%B8%82%E9%87%8E%E9%87%8C%E7%94%BA3-17&output=embed"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <div class="wrap reveal">
+        <div class="logo">GALVA</div>
+        <p>門真の隠れ家で、お待ちしています。</p>
+        <div class="final-cta">
+          <a class="btn btn-ig" href="https://www.instagram.com/diningbar_galva/" target="_blank" rel="noopener">Instagramで予約</a>
+          <a class="btn btn-ghost" href="#info">アクセス・営業時間</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>© Dining bar GALVA — Kadoma, Osaka</footer>
+  </main>
+
+  <div class="floatbar">
+    <a class="ig" href="https://www.instagram.com/diningbar_galva/" target="_blank" rel="noopener">📷 Instagramで予約</a>
+    <a class="ghost" href="#info">📍 アクセス</a>
+  </div>
+
+  <script>
+    (function(){
+      document.body.classList.add('js');
+      const gate = document.getElementById('gate');
+      const site = document.getElementById('site');
+      let opened = false;
+
+      function showSite(){ site.classList.add('show'); document.body.classList.remove('locked'); }
+
+      function openGate(){
+        if (opened) return;
+        opened = true;
+        gate.classList.add('opening'); showSite();
+        setTimeout(()=>{ gate.classList.add('enter'); }, 1150);
+        setTimeout(()=>{ gate.style.display='none'; }, 2350);
+      }
+      gate.addEventListener('click', openGate);
+
+      const burger = document.getElementById('hdBurger');
+      const nav = document.getElementById('hdNav');
+      if (burger && nav) {
+        burger.addEventListener('click', ()=>{ burger.classList.toggle('open'); nav.classList.toggle('open'); });
+        nav.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>{ burger.classList.remove('open'); nav.classList.remove('open'); }));
+      }
+
+      try{
+        const io = new IntersectionObserver((es)=>{ es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold:0.12 });
+        document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      }catch(err){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); }
+    })();
+  </script>
+</body>
+</html>
